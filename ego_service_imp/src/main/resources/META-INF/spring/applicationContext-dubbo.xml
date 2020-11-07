@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://code.alibabatech.com/schema/dubbo 
+		http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	
+	<!-- 使用dubbo标签描述要发布的服务. -->
+	<!-- 任意定义的一个应用名称. 为dubbo应用命名 -->
+	<dubbo:application name="ego_rpc_provider"/>
+	
+	<!-- 提供注册中心信息 -->
+	<dubbo:registry address="127.0.0.1:2181" protocol="zookeeper"></dubbo:registry>
+	
+	<!-- 提供协议信息 -->
+	<dubbo:protocol name="dubbo" port="20880"></dubbo:protocol>
+	 
+	<!-- 声明需要暴露的服务接口 start -->
+	<!-- 商品管理 -->
+	<dubbo:service interface="com.ego.provider.service.DubboTbItemService" ref="dubboTbItemService"></dubbo:service>
+	<dubbo:service interface="com.ego.provider.service.DubboTbItemCatService" ref="dubboTbItemCatService"></dubbo:service>
+	<dubbo:service interface="com.ego.provider.service.DubboTbItemDescService" ref="dubboTbItemDescService"></dubbo:service>
+	<dubbo:service interface="com.ego.provider.service.DubboTbItemParamService" ref="dubboTbItemParamService"></dubbo:service>
+	<dubbo:service interface="com.ego.provider.service.DubboTbItemParamItemService" ref="dubboTbItemParamItemService"></dubbo:service>
+	
+	<bean id="dubboTbItemService" class="com.ego.provider.service.imp.DubboTbItemServiceImp"></bean> 
+	<bean id="dubboTbItemCatService" class="com.ego.provider.service.imp.DubboTbItemCatServiceImp"></bean> 
+	<bean id="dubboTbItemDescService" class="com.ego.provider.service.imp.DubboTbItemDescServiceImp"></bean> 
+	<bean id="dubboTbItemParamService" class="com.ego.provider.service.imp.DubboTbItemParamServiceImp"></bean> 
+	<bean id="dubboTbItemParamItemService" class="com.ego.provider.service.imp.DubboTbItemParamItemServiceImp"></bean> 
+	
+	<!-- 网站内容管理 -->
+	<dubbo:service interface="com.ego.provider.service.DubboTbContentCatService" ref="dubboTbContentCatService"></dubbo:service>
+	<dubbo:service interface="com.ego.provider.service.DubboTbContentService" ref="dubboTbContentService"></dubbo:service>
+	
+	<bean id="dubboTbContentCatService" class="com.ego.provider.service.imp.DubboTbContentCatServiceImp"></bean>
+	<bean id="dubboTbContentService" class="com.ego.provider.service.imp.DubboTbContentServiceImp"></bean>
+	
+	<!-- 用户管理 -->
+	<dubbo:service interface="com.ego.provider.service.DubboTbUserService" ref="dubboTbUserService"></dubbo:service>
+	
+	<bean id="dubboTbUserService" class="com.ego.provider.service.imp.DubboTbUserServiceImp"></bean>
+	<!-- 和本地bean一样实现服务 -->
+	<!-- 声明需要暴露的服务接口 end -->
+	
+	<!-- 加载spring配置文件 -->
+	<import resource="../../applicationContext.xml"/>
+</beans>

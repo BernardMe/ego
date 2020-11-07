@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://code.alibabatech.com/schema/dubbo 
+		http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	
+	<!-- 使用dubbo标签描述要发布的服务. -->
+	<!-- 任意定义的一个应用名称. 为dubbo应用命名 -->
+	<dubbo:application name="ego_passport_consumer"/>
+	
+	<!-- 使用zookeeper订阅服务地址 -->
+	<dubbo:registry address="127.0.0.1:2181" protocol="zookeeper"></dubbo:registry>
+	
+	<!-- dubbo配置注解扫描, 和Spring注解扫描不是一回事 -->
+	<dubbo:annotation package="com.ego.sso.service.imp,com.ego.sso.service.imp"/>
+	
+</beans>
